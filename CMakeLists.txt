@@ -20,7 +20,7 @@ add_subdirectory(lib/libpd)
 # install build into example project by default
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
   set(
-    CMAKE_INSTALL_PREFIX "../../demo/addons/libpd" 
+    CMAKE_INSTALL_PREFIX "../../addons/pure-data" 
     CACHE PATH "..." 
     FORCE)
 endif()
@@ -50,3 +50,4 @@ if(APPLE)
 endif()
 
 install(TARGETS pd-godot DESTINATION .)
+
