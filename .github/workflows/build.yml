@@ -7,37 +7,18 @@ jobs:
   build:
     strategy:
       matrix:
-        os: ['ubuntu', 'windows', 'macos']
+        os: ['ubuntu', 'windows']
     runs-on: ${{ matrix.os }}-latest
     steps:
       - name: checkout
         uses: actions/checkout@v2
-      - name: clone submodule
-        uses: actions/checkout@v2
-        with:
-          repository: samsface/steam-sdk
-          path: lib/steam-sdk
-          ssh-key: ${{ secrets.STEAM_SDK_KEY }}
-      - name: get python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.11' 
-      - name: get conan
-        uses: turtlebrowser/get-conan@main
-        with:
-          version: 1.60.2
-      - name: cache conan
-        uses: actions/cache@v2
-        with:
-           path: ~/.conan
-           key: ${{ runner.os }}-conan-2
       - name: build
         run: ./ci/ci.bash
         shell: bash
       - name: upload-artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: godot-steam-api-${{ matrix.os }}
+          name: godot-pure-data-${{ matrix.os }}
           path: work/install
   
   package:
