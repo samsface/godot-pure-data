@@ -12,8 +12,8 @@ project(gdnative-example)
 # libpd requires pthreads so using this windows port downloaded from the 
 # official site of the win pthread project
 if (MSVC)
-  set(CMAKE_THREAD_LIBS_INIT "${CMAKE_CURRENT_LIST_DIR}/lib/pthreads/lib/pthreadVC2.lib")
-  set(PTHREADS_INCLUDE_DIR  "lib/pthreads/include")
+  set(CMAKE_THREAD_LIBS_INIT "${CMAKE_CURRENT_LIST_DIR}/lib/pthreads/lib/pthreadVC2.lib" CACHE PATH "..." FORCE)
+  set(PTHREADS_INCLUDE_DIR  "lib/pthreads/include" CACHE PATH "..." FORCE)
   include_directories(${PTHREADS_INCLUDE_DIR})
 endif()
 
