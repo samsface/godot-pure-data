@@ -5,12 +5,17 @@ project(gdnative-example)
 # options
 ###############################################################################
 
-OPTION(BUILD_SHARED_LIBS "Build shared libraries" ON)
-
-
 ###############################################################################
 # libs
 ###############################################################################
+
+# libpd requires pthreads so using this windows port downloaded from the 
+# official site of the win pthread project
+if (MSVC)
+  set(CMAKE_THREAD_LIBS_INIT "${CMAKE_CURRENT_LIST_DIR}/lib/pthreads/lib/pthreadVC2.lib")
+  set(PTHREADS_INCLUDE_DIR  "lib/pthreads/include")
+  include_directories(${PTHREADS_INCLUDE_DIR})
+endif()
 
 add_subdirectory(lib/godot-cpp)
 add_subdirectory(lib/libpd)
@@ -20,21 +25,24 @@ add_subdirectory(lib/libpd)
 # install build into example project by default
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
   set(
-    CMAKE_INSTALL_PREFIX "../../addons/pure-data" 
+    CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_LIST_DIR}/addons/pure-data" 
     CACHE PATH "..." 
     FORCE)
 endif()
 
-# let's us link relative to process on linux
+# let's us link depended dlls relative to process on linux
 set(CMAKE_INSTALL_RPATH "$ORIGIN")
 
-add_library(pd-godot src/gdexample.cpp src/register_types.cpp)
+add_library(pd-godot SHARED src/pure_data_audio_stream_player.cpp src/register_types.cpp)
 
 target_link_libraries(
   pd-godot
   PRIVATE
     godot-cpp
-    libpd)
+    libpd_static
+    "$<$<PLATFORM_ID:Windows>:${CMAKE_CURRENT_LIST_DIR}/lib/pthreads/lib/pthreadVC2.lib>"
+    "$<$<PLATFORM_ID:Windows>:Ws2_32.lib>"
+)
 
 set_target_properties(
   pd-godot
@@ -50,4 +58,3 @@ if(APPLE)
 endif()
 
 install(TARGETS pd-godot DESTINATION .)
-

@@ -1,6 +1,6 @@
 #include "register_types.h"
 
-#include "gdexample.h"
+#include "pure_data_audio_stream_player.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -13,8 +13,8 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 		return;
 	}
 
-	ClassDB::register_class<GDExample>();
-	ClassDB::register_class<PDPatchFile>();
+	ClassDB::register_class<PureDataAudioStreamPlayer>();
+	ClassDB::register_class<PureDataPatch>();
 }
 
 void uninitialize_example_module(ModuleInitializationLevel p_level) {
@@ -24,7 +24,6 @@ void uninitialize_example_module(ModuleInitializationLevel p_level) {
 }
 
 extern "C" {
-// Initialization.
 GDExtensionBool GDE_EXPORT example_library_init(GDExtensionInterfaceGetProcAddress p_get_proc_address, const GDExtensionClassLibraryPtr p_library, GDExtensionInitialization *r_initialization) {
 	godot::GDExtensionBinding::InitObject init_obj(p_get_proc_address, p_library, r_initialization);
 
