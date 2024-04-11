@@ -2,5 +2,5 @@
 
 mkdir -p work
 cd work
-cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=../addons/pure-data
-cmake --build . --target install
+cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=install/lib
+cmake --build . --config Release --target install
