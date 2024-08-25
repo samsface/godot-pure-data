@@ -60,13 +60,10 @@ jobs:
         with:
           name: project
           path: addons
-      - name: commit
-        run: |
-          git config --global user.name 'samsface'
-          git config --global user.email 'samsface@users.noreply.github.com'
-          git add -A
-          git commit -am "automated commit"
-          git push
+      - name: create release
+        uses: softprops/action-gh-release@v2.0.8
+        with:
+          files: addons/*
 
   remove-old-artifacts:
     needs: [publish]
