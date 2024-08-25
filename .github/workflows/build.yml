@@ -15,14 +15,14 @@ jobs:
     runs-on: ${{ matrix.os }}-latest
     steps:
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4.1.7
         with:
           submodules: 'recursive' 
       - name: build
         run: ./ci/ci.bash
         shell: bash
       - name: upload-artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4.3.6
         with:
           name: godot-pure-data-${{ matrix.os }}
           path: work/install
@@ -32,16 +32,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4.1.7
       - name: download all build artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.8
         with:
           path: work/artifacts
       - name: build
         run: sh ci/package.bash work/artifacts
         shell: bash
       - name: upload-artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4.3.6
         with:
           name: project
           path: addons
@@ -52,11 +52,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4.1.7
         with:
           ref: master
       - name: download all build artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.8
         with:
           name: project
           path: addons
