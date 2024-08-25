@@ -63,7 +63,7 @@ jobs:
       - name: compress release
         run: |
           mkdir dist
-          tar -czvf dist/godot-pure-data-universal.tar.gz addons
+          tar -czvf dist/godot-pure-data-universal.tar.gz -C addons .
       - name: create release
         uses: softprops/action-gh-release@v2.0.8
         with:
