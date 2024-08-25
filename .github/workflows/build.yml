@@ -60,10 +60,12 @@ jobs:
         with:
           name: project
           path: addons
+      - name: compress release
+        run: tar -czvf addons/godot-pure-data-universal.tar.gz addons
       - name: create release
         uses: softprops/action-gh-release@v2.0.8
         with:
-          files: addons/*
+          files: addons/*.tar.gz
           fail_on_unmatched_files: true
 
   remove-old-artifacts:
