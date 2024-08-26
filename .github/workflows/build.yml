@@ -46,7 +46,7 @@ jobs:
           name: project
           path: addons
 
-  publish:
+  publish-release:
     needs: [package]
     if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
@@ -70,8 +70,30 @@ jobs:
           files: dist/*
           fail_on_unmatched_files: true
 
+  publish-commit:
+    needs: [package]
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4.1.7
+        with:
+          ref: master
+      - name: download all build artifacts
+        uses: actions/download-artifact@v4.1.8
+        with:
+          name: project
+          path: addons
+      - name: commit
+        run: |
+          git config --global user.name 'samsface'
+          git config --global user.email 'samsface@users.noreply.github.com'
+          git add -A
+          git commit -am "automated commit"
+          git push
+
   remove-old-artifacts:
-    needs: [publish]
+    needs: [publish-release, publish-commit]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
