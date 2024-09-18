@@ -67,13 +67,3 @@ jobs:
           git add -A
           git commit -am "automated commit"
           git push
-
-  remove-old-artifacts:
-    needs: [publish]
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-    - name: remove-old-artifacts
-      uses: c-hive/gha-remove-artifacts@v1
-      with:
-        age: '10 minutes'
