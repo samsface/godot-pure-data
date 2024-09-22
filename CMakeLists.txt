@@ -5,6 +5,11 @@ project(gdnative-example)
 # options
 ###############################################################################
 
+# build universal binaries on macos
+if(APPLE)
+  set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
+endif()
+
 ###############################################################################
 # libs
 ###############################################################################
@@ -49,12 +54,5 @@ set_target_properties(
   PROPERTIES
   CXX_STANDARD 17
   CXX_STANDARD_REQUIRED ON)
-
-if(APPLE)
-  set_target_properties(
-    pd-godot
-    PROPERTIES 
-    OSX_ARCHITECTURES "arm64;x86_64")
-endif()
 
 install(TARGETS pd-godot DESTINATION .)
