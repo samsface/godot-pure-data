@@ -21,7 +21,7 @@ jobs:
       - name: setup ninja
         run: |
           if [ "$RUNNER_OS" == "Linux" ]; then
-            apt install ninja-build
+            sudo apt-get install ninja-build
           elif [ "$RUNNER_OS" == "Windows" ]; then
             choco install ninja
           elif [ "$RUNNER_OS" == "macOS" ]; then
