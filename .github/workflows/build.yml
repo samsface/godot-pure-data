@@ -18,6 +18,16 @@ jobs:
         uses: actions/checkout@v4.1.7
         with:
           submodules: 'recursive' 
+      - name: setup ninja
+        run: |
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            apt install ninja-build
+          elif [ "$RUNNER_OS" == "Windows" ]; then
+            choco install ninja
+          elif [ "$RUNNER_OS" == "macOS" ]; then
+            brew install ninja
+          fi
+        shell: bash
       - name: build
         run: ./ci/ci.bash
         shell: bash
