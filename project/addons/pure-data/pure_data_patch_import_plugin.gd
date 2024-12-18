@@ -47,8 +47,19 @@ func _get_priority():
 
 
 func _import(source_file, save_path, options, r_platform_variants, r_gen_files):
+	var err: Error
+	
+	# Load the data from the patch file
+	var patch_data := FileAccess.get_file_as_bytes(source_file)
+	err = FileAccess.get_open_error()
+	if err != OK:
+		return err
+	
+	# Create a PureDataPatchFile and save the patch data to it
 	var patch_file := PureDataPatchFile.new()
 	patch_file.file_path = source_file
+	patch_file.patch_data = patch_data
 	
-	var file_name := "%s.%s" % [save_path, _get_save_extension()]
-	return ResourceSaver.save(patch_file, file_name)
+	# Save the PureDataPatchFile to disk
+	var resource_file_name := "%s.%s" % [save_path, _get_save_extension()]
+	return ResourceSaver.save(patch_file, resource_file_name)
