@@ -44,7 +44,7 @@ jobs:
         uses: actions/upload-artifact@v4.3.6
         with:
           name: project
-          path: addons
+          path: project/addons
 
   publish:
     needs: [package]
@@ -59,7 +59,7 @@ jobs:
         uses: actions/download-artifact@v4.1.8
         with:
           name: project
-          path: addons
+          path: project/addons
       - name: commit
         run: |
           git config --global user.name 'samsface'

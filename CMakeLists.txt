@@ -30,7 +30,7 @@ add_subdirectory(lib/libpd)
 # install build into example project by default
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
   set(
-    CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_LIST_DIR}/addons/pure-data" 
+    CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_LIST_DIR}/project/addons/pure-data" 
     CACHE PATH "..." 
     FORCE)
 endif()
