@@ -7,7 +7,7 @@ namespace godot {
 class PureDataPatch : public RefCounted {
 	GDCLASS(PureDataPatch, RefCounted)
 
-	void* handle_{};
+	void *handle_{};
 
 protected:
 	static void _bind_methods();
@@ -18,7 +18,6 @@ public:
 
 	bool open(String path);
 	void close();
-
 };
 
 class PureDataAudioStreamPlayer : public AudioStreamPlayer {
@@ -55,4 +54,4 @@ public:
 	int write_array(String array_name, int offset, PackedFloat32Array src, int n);
 	PackedFloat32Array read_array(String array_name, int offset, int n);
 };
-};
+}; //namespace godot
