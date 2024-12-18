@@ -14,7 +14,7 @@ endif()
 # libs
 ###############################################################################
 
-# libpd requires pthreads so using this windows port downloaded from the 
+# libpd requires pthreads so using this windows port downloaded from the
 # official site of the win pthread project
 if (MSVC)
   set(CMAKE_THREAD_LIBS_INIT "${CMAKE_CURRENT_LIST_DIR}/lib/pthreads/lib/pthreadVC2.lib" CACHE PATH "..." FORCE)
@@ -30,8 +30,8 @@ add_subdirectory(lib/libpd)
 # install build into example project by default
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
   set(
-    CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_LIST_DIR}/project/addons/pure-data" 
-    CACHE PATH "..." 
+    CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_LIST_DIR}/project/addons/pure-data/bin"
+    CACHE PATH "..."
     FORCE)
 endif()
 
