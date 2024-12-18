@@ -1,0 +1,14 @@
+[remap]
+
+importer="pure_data.patch"
+type="PureDataPatchFile"
+uid="uid://cubwavntchyvc"
+path="res://.godot/imported/patch.pd-1665e899dc680ece08adcafc4beadc98.tres"
+
+[deps]
+
+source_file="res://demo/patch.pd"
+dest_files=["res://.godot/imported/patch.pd-1665e899dc680ece08adcafc4beadc98.tres"]
+
+[params]
+
