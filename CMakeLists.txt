@@ -17,9 +17,8 @@ endif()
 # libpd requires pthreads so using this windows port downloaded from the
 # official site of the win pthread project
 if (MSVC)
-  set(CMAKE_THREAD_LIBS_INIT "${CMAKE_CURRENT_LIST_DIR}/lib/pthreads/lib/pthreadVC2.lib" CACHE PATH "..." FORCE)
-  set(PTHREADS_INCLUDE_DIR  "lib/pthreads/include" CACHE PATH "..." FORCE)
-  include_directories(${PTHREADS_INCLUDE_DIR})
+  set(PTHREADS_LIB "${CMAKE_CURRENT_LIST_DIR}/lib/pthreads/lib/pthreadVC2.lib" CACHE PATH "..." FORCE)
+  set(PTHREADS_INCLUDE_DIR  "${CMAKE_CURRENT_LIST_DIR}/lib/pthreads/include" CACHE PATH "..." FORCE)
 endif()
 
 add_subdirectory(lib/godot-cpp)
