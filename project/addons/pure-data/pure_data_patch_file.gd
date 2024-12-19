@@ -43,7 +43,7 @@ func create_temporary_file() -> Error:
 		return err
 	
 	if not user_dir.dir_exists(temp_path.get_base_dir()):
-		err = user_dir.make_dir(temp_path.get_base_dir())
+		err = user_dir.make_dir_recursive(temp_path.get_base_dir())
 	if err != OK:
 		push_error("Failed to create temporary directory: ", error_string(err))
 		return err
