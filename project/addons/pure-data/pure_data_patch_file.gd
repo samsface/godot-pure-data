@@ -15,6 +15,21 @@ var temp_path
 
 ## Creates a temporary patch file if one doesn't already exist and returns its path.
 func get_temp_path() -> String:
+	var err := create_temporary_file()
+	if err != OK:
+		push_error("Failed to create temporary file: ", error_string(err))
+		return ""
+	
+	return temp_path
+
+
+## Creates a temporary patch file if one doesn't already exist and returns a global path to it.
+func get_global_path() -> String:
+	return ProjectSettings.globalize_path(get_temp_path())
+
+
+## Creates a temporary file if one doesn't exist.
+func create_temporary_file() -> Error:
 	var err: Error
 	
 	# Figure out where the temporary file will go
@@ -25,26 +40,21 @@ func get_temp_path() -> String:
 	err = DirAccess.get_open_error()
 	if err != OK:
 		push_error("Failed to access user directory: ", error_string(err))
-		return ""
+		return err
 	
 	if not user_dir.dir_exists(temp_path.get_base_dir()):
 		err = user_dir.make_dir(temp_path.get_base_dir())
 	if err != OK:
 		push_error("Failed to create temporary directory: ", error_string(err))
-		return ""
+		return err
 	
 	# Write a temporary file to the disk
 	var save_file := FileAccess.open(temp_path, FileAccess.WRITE)
 	err = FileAccess.get_open_error()
 	if err != OK:
 		push_error("Failed to save temporary patch file: ", error_string(err))
-		return ""
+		return err
 	
 	save_file.store_buffer(patch_data)
 	
-	return temp_path
-
-
-## Creates a temporary patch file if one doesn't already exist and returns a global path to it.
-func get_global_path() -> String:
-	return ProjectSettings.globalize_path(get_temp_path())
+	return OK
