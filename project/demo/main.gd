@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 var patch_file_handle_ = PureDataPatch.new()
 @export var patch: PureDataPatchFile

@@ -1,27 +1,46 @@
-[gd_scene load_steps=5 format=3 uid="uid://c8aoxiynmoflw"]
+[gd_scene load_steps=7 format=3 uid="uid://c8aoxiynmoflw"]
 
 [ext_resource type="Script" path="res://demo/main.gd" id="1_8xx6l"]
 [ext_resource type="Script" path="res://addons/pure-data/pure_data_patch_instance.gd" id="2_nf33n"]
-[ext_resource type="Resource" uid="uid://cubwavntchyvc" path="res://demo/patch.pd" id="3_bm58y"]
+[ext_resource type="Resource" uid="uid://cubwavntchyvc" path="res://demo/patch.pd" id="3_26hti"]
+[ext_resource type="Script" path="res://addons/pure-data/pure_data_abstraction.gd" id="4_8oxsu"]
+[ext_resource type="Resource" uid="uid://by437i5hd8nv4" path="res://demo/abstraction.pd" id="4_w2ui7"]
 
 [sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_pylde"]
 buffer_length = 0.05
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_8xx6l")
 
 [node name="PureDataAudioStreamPlayer" type="PureDataAudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamGenerator_pylde")
 
-[node name="HSlider" type="HSlider" parent="."]
-offset_right = 282.0
-offset_bottom = 16.0
+[node name="MainPatch" type="Node" parent="."]
+script = ExtResource("2_nf33n")
+patch_file = ExtResource("3_26hti")
+
+[node name="AbstractionPatch" type="Node" parent="MainPatch"]
+script = ExtResource("4_8oxsu")
+patch_file = ExtResource("4_w2ui7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FrequencySlider" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
 min_value = 100.0
 max_value = 1000.0
 value = 100.0
 
-[node name="PureDataPatchInstance" type="Node" parent="."]
-script = ExtResource("2_nf33n")
-patch_file = ExtResource("3_bm58y")
-
-[connection signal="value_changed" from="HSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/FrequencySlider" to="." method="_on_h_slider_value_changed"]
