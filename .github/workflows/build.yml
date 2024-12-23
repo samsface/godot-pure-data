@@ -11,13 +11,13 @@ jobs:
   build:
     strategy:
       matrix:
-        os: ['ubuntu', 'windows']
+        os: ['ubuntu', 'windows', 'macos']
     runs-on: ${{ matrix.os }}-latest
     steps:
       - name: checkout
         uses: actions/checkout@v4.1.7
         with:
-          submodules: 'recursive' 
+          submodules: 'recursive'
       - name: build
         run: ./ci/ci.bash
         shell: bash
@@ -26,7 +26,7 @@ jobs:
         with:
           name: godot-pure-data-${{ matrix.os }}
           path: work/install
-  
+
   package:
     needs: [build]
     runs-on: ubuntu-latest
@@ -44,7 +44,7 @@ jobs:
         uses: actions/upload-artifact@v4.3.6
         with:
           name: project
-          path: addons
+          path: project
 
   publish-release:
     needs: [package]
@@ -83,7 +83,7 @@ jobs:
         uses: actions/download-artifact@v4.1.8
         with:
           name: project
-          path: addons
+          path: project
       - name: commit
         run: |
           git config --global user.name 'samsface'
@@ -91,13 +91,3 @@ jobs:
           git add -A
           git commit -am "automated commit"
           git push
-
-  remove-old-artifacts:
-    needs: [publish-release, publish-commit]
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-    - name: remove-old-artifacts
-      uses: c-hive/gha-remove-artifacts@v1
-      with:
-        age: '10 minutes'

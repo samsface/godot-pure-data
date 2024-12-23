@@ -5,16 +5,20 @@ project(gdnative-example)
 # options
 ###############################################################################
 
+# build universal binaries on macos
+if(APPLE)
+  set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
+endif()
+
 ###############################################################################
 # libs
 ###############################################################################
 
-# libpd requires pthreads so using this windows port downloaded from the 
+# libpd requires pthreads so using this windows port downloaded from the
 # official site of the win pthread project
 if (MSVC)
-  set(CMAKE_THREAD_LIBS_INIT "${CMAKE_CURRENT_LIST_DIR}/lib/pthreads/lib/pthreadVC2.lib" CACHE PATH "..." FORCE)
-  set(PTHREADS_INCLUDE_DIR  "lib/pthreads/include" CACHE PATH "..." FORCE)
-  include_directories(${PTHREADS_INCLUDE_DIR})
+  set(PTHREADS_LIB "${CMAKE_CURRENT_LIST_DIR}/lib/pthreads/lib/pthreadVC2.lib" CACHE PATH "..." FORCE)
+  set(PTHREADS_INCLUDE_DIR  "${CMAKE_CURRENT_LIST_DIR}/lib/pthreads/include" CACHE PATH "..." FORCE)
 endif()
 
 add_subdirectory(lib/godot-cpp)
@@ -25,8 +29,8 @@ add_subdirectory(lib/libpd)
 # install build into example project by default
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
   set(
-    CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_LIST_DIR}/addons/pure-data" 
-    CACHE PATH "..." 
+    CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_LIST_DIR}/project/addons/pure-data/bin"
+    CACHE PATH "..."
     FORCE)
 endif()
 
@@ -49,12 +53,5 @@ set_target_properties(
   PROPERTIES
   CXX_STANDARD 17
   CXX_STANDARD_REQUIRED ON)
-
-if(APPLE)
-  set_target_properties(
-    pd-godot
-    PROPERTIES 
-    OSX_ARCHITECTURES "arm64;x86_64")
-endif()
 
 install(TARGETS pd-godot DESTINATION .)
