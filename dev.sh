@@ -2,5 +2,5 @@
 
 mkdir -p work
 cd work
-cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=install/lib
-cmake --build . --config Release --target install
+cmake -G Ninja .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=install/lib
+cmake --build . -j10 --config Release --target install
