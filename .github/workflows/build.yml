@@ -55,15 +55,15 @@ jobs:
         uses: actions/checkout@v4.1.7
         with:
           ref: master
-      - name: download all build artifacts
+      - name: download project artifacts
         uses: actions/download-artifact@v4.1.8
         with:
           name: project
-          path: addons
+          path: package-contents
       - name: compress release
         run: |
           mkdir dist
-          tar -czvf dist/godot-pure-data-universal.tar.gz -C addons .
+          tar -czvf dist/godot-pure-data-universal.tar.gz -C package-contents .
       - name: create release
         uses: softprops/action-gh-release@v2.0.8
         with:
