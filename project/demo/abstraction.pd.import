@@ -1,0 +1,14 @@
+[remap]
+
+importer="pure_data.patch"
+type="PureDataPatchFile"
+uid="uid://by437i5hd8nv4"
+path="res://.godot/imported/abstraction.pd-3883e46ebed67594b0a5d07f2ae41871.tres"
+
+[deps]
+
+source_file="res://demo/abstraction.pd"
+dest_files=["res://.godot/imported/abstraction.pd-3883e46ebed67594b0a5d07f2ae41871.tres"]
+
+[params]
+

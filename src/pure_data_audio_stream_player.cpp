@@ -1,6 +1,7 @@
 #include "pure_data_audio_stream_player.h"
-#include <godot_cpp/classes/audio_stream_generator_playback.hpp>
 #include <godot_cpp/core/class_db.hpp>
+#include <godot_cpp/variant/utility_functions.hpp>
+#include <godot_cpp/classes/audio_stream_generator_playback.hpp>
 
 #define PD_INTERNAL
 
@@ -40,7 +41,7 @@ public:
 };
 
 static void _print(const char *s) {
-	//std::cout << s << std::endl;
+	UtilityFunctions::print(s);
 }
 
 void PureDataPatch::_bind_methods() {
@@ -91,7 +92,7 @@ PureDataAudioStreamPlayer::PureDataAudioStreamPlayer() {
 	::libpd_set_verbose(1);
 
 	::libpd_set_printhook(::libpd_print_concatenator);
-	::libpd_set_printhook(_print);
+	::libpd_set_concatenated_printhook(_print);
 
 	PureDataStatic::register_instance(this);
 
