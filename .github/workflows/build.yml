@@ -59,12 +59,12 @@ jobs:
         uses: actions/download-artifact@v4.1.8
         with:
           name: project
-          path: package-contents
+          path: godot-pure-data
       - name: compress release
         run: |
           mkdir dist
-          tar -czvf dist/godot-pure-data-universal.tar.gz -C package-contents .
-          zip -r dist/godot-pure-data-universal.zip package-contents
+          tar -czvf dist/godot-pure-data-universal.tar.gz -C godot-pure-data .
+          zip -r dist/godot-pure-data-universal.zip godot-pure-data
       - name: create release
         uses: softprops/action-gh-release@v2.0.8
         with:
