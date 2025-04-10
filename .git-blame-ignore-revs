@@ -1,0 +1,4 @@
+# Use with `git config --local blame.ignoreRevsFile .git-blame-ignore-revs`
+
+# Formatting changes
+85d166e71f5884c2ceee8ad1181c2321aedb6809
