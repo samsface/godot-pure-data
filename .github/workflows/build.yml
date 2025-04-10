@@ -11,8 +11,13 @@ jobs:
   build:
     strategy:
       matrix:
-        os: ['ubuntu', 'windows', 'macos']
-    runs-on: ${{ matrix.os }}-latest
+        os: [
+          'ubuntu-latest',
+          'ubuntu-24.04-arm',
+          'windows-latest',
+          'macos-latest'
+        ]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: checkout
         uses: actions/checkout@v4.1.7
