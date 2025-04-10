@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://c8aoxiynmoflw"]
 
-[ext_resource type="Script" path="res://demo/main.gd" id="1_8xx6l"]
-[ext_resource type="Script" path="res://addons/pure-data/pure_data_patch_instance.gd" id="2_nf33n"]
+[ext_resource type="Script" uid="uid://cgviwr7ykr2oe" path="res://demo/main.gd" id="1_8xx6l"]
+[ext_resource type="Script" uid="uid://cu4m5blqsfc8w" path="res://addons/pure-data/pure_data_patch_instance.gd" id="2_nf33n"]
 [ext_resource type="Resource" uid="uid://cubwavntchyvc" path="res://demo/patch.pd" id="3_26hti"]
-[ext_resource type="Script" path="res://addons/pure-data/pure_data_abstraction.gd" id="4_8oxsu"]
+[ext_resource type="Script" uid="uid://b0blfx23hs8x2" path="res://addons/pure-data/pure_data_abstraction.gd" id="4_8oxsu"]
 [ext_resource type="Resource" uid="uid://by437i5hd8nv4" path="res://demo/abstraction.pd" id="4_w2ui7"]
 
 [sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_pylde"]
