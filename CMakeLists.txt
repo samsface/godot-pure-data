@@ -28,6 +28,25 @@ add_subdirectory(lib/libpd)
 
 ###############################################################################
 
+# figure out what the binary name should be
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+  set(TARGET_PLATFORM_NAME "linux")
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+  set(TARGET_PLATFORM_NAME "windows")
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+  set(TARGET_PLATFORM_NAME "macos")
+else()
+  message("Target platform unknown! This is likely an error.")
+  set(TARGET_PLATFORM_NAME "unknown")
+endif()
+
+if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+  set(TARGET_PLATFORM_ARCH "universal")
+else()
+  set(TARGET_PLATFORM_ARCH CMAKE_SYSTEM_PROCESSOR)
+endif()
+
+
 # install build into example project by default
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
   set(
@@ -54,6 +73,8 @@ set_target_properties(
   pd-godot
   PROPERTIES
   CXX_STANDARD 17
-  CXX_STANDARD_REQUIRED ON)
+  CXX_STANDARD_REQUIRED ON
+  OUTPUT_NAME "libpd-godot.${TARGET_PLATFORM_NAME}.${TARGET_PLATFORM_ARCH}"
+)
 
 install(TARGETS pd-godot DESTINATION .)
