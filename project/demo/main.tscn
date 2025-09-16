@@ -68,6 +68,8 @@ value = 1.0
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = SubResource("PureDataAudioStream_wrxtx")
 
+[node name="PureDataInstance" type="PureDataInstance" parent="."]
+
 [connection signal="value_changed" from="GridContainer/FrequencySlider" to="." method="_on_frequency_slider_value_changed"]
 [connection signal="value_changed" from="GridContainer/HarmonicSlider" to="." method="_on_harmonic_slider_value_changed"]
 [connection signal="value_changed" from="GridContainer/ModulationSlider" to="." method="_on_modulation_slider_value_changed"]

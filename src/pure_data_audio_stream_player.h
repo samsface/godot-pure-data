@@ -2,7 +2,6 @@
 
 #include <godot_cpp/classes/audio_stream_generator_playback.hpp>
 #include <godot_cpp/classes/audio_stream_generator.hpp>
-#include <godot_cpp/classes/audio_stream_player.hpp>
 
 namespace godot {
 
@@ -13,8 +12,6 @@ private:
 	double time_passed;
 	float inbuf_[1];
 	float outbuf_[44100 * 2];
-	float initialized_{};
-	bool message_guard_{};
 	Ref<AudioStreamGeneratorPlayback> playback;
 
 protected:
@@ -25,21 +22,6 @@ public:
 	~PureDataAudioStream();
 
 	void _process(double delta);
-
-	bool is_initialized() const;
-	bool send_bang(String receiver);
-	bool send_float(String receiver, float value);
-	bool start_message(int max_length);
-	void add_float(float value);
-	void add_symbol(String value);
-	bool finish_list(String receiver);
-	bool finish_message(String receiver, String message);
-	void bind(String receiver);
-	bool start_gui(String pure_data_bin_dir_path);
-	int get_array_size(String array_name);
-	int set_array_size(String array_name, int size);
-	int write_array(String array_name, int offset, PackedFloat32Array src, int n);
-	PackedFloat32Array read_array(String array_name, int offset, int n);
 
 	virtual Ref<AudioStreamPlayback> instantiate_playback();
 };

@@ -61,6 +61,7 @@ set(CMAKE_INSTALL_RPATH "$ORIGIN")
 add_library(
 	pd-godot
 	SHARED
+		src/pure_data_instance.cpp
 		src/pure_data_audio_stream_player.cpp
 		src/pure_data_patch.cpp
 		src/register_types.cpp
