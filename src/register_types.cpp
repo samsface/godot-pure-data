@@ -16,7 +16,8 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 	}
 
 	ClassDB::register_class<PureDataInstance>();
-	ClassDB::register_class<PureDataAudioStream>();
+	ClassDB::register_class<AudioStreamPureData>();
+	ClassDB::register_class<AudioStreamPureDataPlayback>();
 	ClassDB::register_class<PureDataPatch>();
 }
 
