@@ -1,5 +1,7 @@
 #pragma once
 
+#include <godot_cpp/classes/audio_stream_generator_playback.hpp>
+#include <godot_cpp/classes/audio_stream_generator.hpp>
 #include <godot_cpp/classes/audio_stream_player.hpp>
 
 namespace godot {
@@ -21,8 +23,8 @@ public:
 
 };
 
-class PureDataAudioStreamPlayer : public AudioStreamPlayer {
-	GDCLASS(PureDataAudioStreamPlayer, AudioStreamPlayer)
+class PureDataAudioStream : public AudioStreamGenerator {
+	GDCLASS(PureDataAudioStream, AudioStreamGenerator)
 
 private:
 	double time_passed;
@@ -30,15 +32,16 @@ private:
 	float outbuf_[44100 * 2];
 	float initialized_{};
 	bool message_guard_{};
+	Ref<AudioStreamGeneratorPlayback> playback;
 
 protected:
 	static void _bind_methods();
 
 public:
-	PureDataAudioStreamPlayer();
-	~PureDataAudioStreamPlayer();
+	PureDataAudioStream();
+	~PureDataAudioStream();
 
-	void _process(double delta) override;
+	void _process(double delta);
 
 	bool is_initialized() const;
 	bool send_bang(String receiver);
@@ -54,5 +57,7 @@ public:
 	int set_array_size(String array_name, int size);
 	int write_array(String array_name, int offset, PackedFloat32Array src, int n);
 	PackedFloat32Array read_array(String array_name, int offset, int n);
+
+	virtual Ref<AudioStreamPlayback> instantiate_playback();
 };
 };

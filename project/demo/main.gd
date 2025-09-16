@@ -6,17 +6,17 @@ var patch_file_handle_ = PureDataPatch.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$PureDataAudioStreamPlayer.play()
-	#$PureDataAudioStreamPlayer.start_gui("/Applications/Pd-0.55-2.app/Contents/MacOS")
+	$AudioStreamPlayer.play()
+	#$AudioStreamPlayer.stream.start_gui("/Applications/Pd-0.55-2.app/Contents/MacOS")
 
 
 func _on_frequency_slider_value_changed(value: float) -> void:
-	$PureDataAudioStreamPlayer.send_float("osc-frequency", value)
+	$AudioStreamPlayer.stream.send_float("osc-frequency", value)
 
 
 func _on_harmonic_slider_value_changed(value: float) -> void:
-	$PureDataAudioStreamPlayer.send_float("harmonic-ratio", value)
+	$AudioStreamPlayer.stream.send_float("harmonic-ratio", value)
 
 
 func _on_modulation_slider_value_changed(value: float) -> void:
-	$PureDataAudioStreamPlayer.send_float("modulation-index", value)
+	$AudioStreamPlayer.stream.send_float("modulation-index", value)

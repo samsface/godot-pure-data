@@ -6,8 +6,7 @@
 [ext_resource type="Script" uid="uid://b0blfx23hs8x2" path="res://addons/pure-data/pure_data_abstraction.gd" id="4_8oxsu"]
 [ext_resource type="Resource" uid="uid://by437i5hd8nv4" path="res://demo/abstraction.pd" id="4_w2ui7"]
 
-[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_pylde"]
-buffer_length = 0.05
+[sub_resource type="PureDataAudioStream" id="PureDataAudioStream_wrxtx"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -17,9 +16,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_8xx6l")
-
-[node name="PureDataAudioStreamPlayer" type="PureDataAudioStreamPlayer" parent="."]
-stream = SubResource("AudioStreamGenerator_pylde")
 
 [node name="MainPatch" type="Node" parent="."]
 script = ExtResource("2_nf33n")
@@ -68,6 +64,9 @@ layout_mode = 2
 max_value = 1.0
 step = 0.001
 value = 1.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("PureDataAudioStream_wrxtx")
 
 [connection signal="value_changed" from="GridContainer/FrequencySlider" to="." method="_on_frequency_slider_value_changed"]
 [connection signal="value_changed" from="GridContainer/HarmonicSlider" to="." method="_on_harmonic_slider_value_changed"]

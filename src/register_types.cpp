@@ -13,7 +13,7 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 		return;
 	}
 
-	ClassDB::register_class<PureDataAudioStreamPlayer>();
+	ClassDB::register_class<PureDataAudioStream>();
 	ClassDB::register_class<PureDataPatch>();
 }
 
