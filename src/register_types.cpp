@@ -1,6 +1,7 @@
 #include "register_types.h"
 
 #include "pure_data_audio_stream_player.h"
+#include "pure_data_patch.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>

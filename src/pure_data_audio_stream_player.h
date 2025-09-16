@@ -6,23 +6,6 @@
 
 namespace godot {
 
-class PureDataPatch : public RefCounted {
-	GDCLASS(PureDataPatch, RefCounted)
-
-	void* handle_{};
-
-protected:
-	static void _bind_methods();
-
-public:
-	PureDataPatch() = default;
-	~PureDataPatch() = default;
-
-	bool open(String path);
-	void close();
-
-};
-
 class PureDataAudioStream : public AudioStreamGenerator {
 	GDCLASS(PureDataAudioStream, AudioStreamGenerator)
 
@@ -60,4 +43,5 @@ public:
 
 	virtual Ref<AudioStreamPlayback> instantiate_playback();
 };
+
 };

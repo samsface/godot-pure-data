@@ -58,7 +58,13 @@ endif()
 # let's us link depended dlls relative to process on linux
 set(CMAKE_INSTALL_RPATH "$ORIGIN")
 
-add_library(pd-godot SHARED src/pure_data_audio_stream_player.cpp src/register_types.cpp)
+add_library(
+	pd-godot
+	SHARED
+		src/pure_data_audio_stream_player.cpp
+		src/pure_data_patch.cpp
+		src/register_types.cpp
+)
 
 target_link_libraries(
   pd-godot
