@@ -11,8 +11,8 @@ private:
 	double time_passed;
 	float initialized_{};
 	bool message_guard_{};
-	int in_channel_count = 1;
-	int out_channel_count = 1;
+	int in_channel_count = 2;
+	int out_channel_count = 2;
 	int sample_rate = 44100;
 
 	int init_audio();

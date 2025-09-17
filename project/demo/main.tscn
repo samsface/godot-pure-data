@@ -20,8 +20,6 @@ grow_vertical = 2
 script = ExtResource("1_8xx6l")
 
 [node name="PureDataInstance" type="PureDataInstance" parent="."]
-in_channel_count = 2
-out_channel_count = 2
 
 [node name="MainPatch" type="Node" parent="."]
 script = ExtResource("2_nf33n")
