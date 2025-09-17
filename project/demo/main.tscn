@@ -7,6 +7,8 @@
 [ext_resource type="Resource" uid="uid://by437i5hd8nv4" path="res://demo/abstraction.pd" id="4_w2ui7"]
 
 [sub_resource type="AudioStreamPureData" id="AudioStreamPureData_wrxtx"]
+instance = Object(PureDataInstance,"in_channel_count":1,"out_channel_count":1,"sample_rate":44100,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","script":null)
+
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -18,6 +20,8 @@ grow_vertical = 2
 script = ExtResource("1_8xx6l")
 
 [node name="PureDataInstance" type="PureDataInstance" parent="."]
+in_channel_count = 2
+out_channel_count = 2
 
 [node name="MainPatch" type="Node" parent="."]
 script = ExtResource("2_nf33n")

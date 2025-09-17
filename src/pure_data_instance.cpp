@@ -69,6 +69,17 @@ void PureDataInstance::_bind_methods()
 	ClassDB::bind_method(D_METHOD("bind"), &PureDataInstance::bind);
 	ADD_SIGNAL(MethodInfo("bang", PropertyInfo(Variant::STRING, "receiver")));
 	ADD_SIGNAL(MethodInfo("float", PropertyInfo(Variant::STRING, "receiver"), PropertyInfo(Variant::FLOAT, "value")));
+
+	ClassDB::bind_method(D_METHOD("set_in_channel_count", "channels"), &PureDataInstance::set_in_channel_count);
+	ClassDB::bind_method(D_METHOD("get_in_channel_count"), &PureDataInstance::get_in_channel_count);
+	ClassDB::bind_method(D_METHOD("set_out_channel_count", "channels"), &PureDataInstance::set_out_channel_count);
+	ClassDB::bind_method(D_METHOD("get_out_channel_count"), &PureDataInstance::get_out_channel_count);
+	ClassDB::bind_method(D_METHOD("set_sample_rate", "hz"), &PureDataInstance::set_sample_rate);
+	ClassDB::bind_method(D_METHOD("get_sample_rate"), &PureDataInstance::get_sample_rate);
+
+	ADD_PROPERTY(PropertyInfo(Variant::INT, "in_channel_count"), "set_in_channel_count", "get_in_channel_count");
+	ADD_PROPERTY(PropertyInfo(Variant::INT, "out_channel_count"), "set_out_channel_count", "get_out_channel_count");
+	ADD_PROPERTY(PropertyInfo(Variant::INT, "sample_rate", PROPERTY_HINT_RANGE, "20,192000,1,suffix:Hz"), "set_sample_rate", "get_sample_rate");
 }
 
 
@@ -78,7 +89,7 @@ PureDataInstance::PureDataInstance() {
 		return;
 	}
 
-	initialized_ = ::libpd_init_audio(1, 2, 44100) == 0;
+	initialized_ = init_audio() == 0;
 	if(!initialized_) {
 		return;
 	}
@@ -97,9 +108,12 @@ PureDataInstance::PureDataInstance() {
 	::libpd_finish_message("pd", "dsp");
 }
 
-
 PureDataInstance::~PureDataInstance()
 {
+}
+
+int PureDataInstance::init_audio() {
+	return ::libpd_init_audio(in_channel_count, out_channel_count, sample_rate);
 }
 
 bool PureDataInstance::is_initialized() const
@@ -187,4 +201,31 @@ PackedFloat32Array PureDataInstance::read_array(String array_name, int offset, i
 	::libpd_read_array(dest.ptrw(), array_name.utf8(), offset, n);
 
 	return dest;
+}
+
+int PureDataInstance::get_in_channel_count() const {
+	return in_channel_count;
+}
+
+void PureDataInstance::set_in_channel_count(int count) {
+	in_channel_count = count;
+	init_audio();
+}
+
+int PureDataInstance::get_out_channel_count() const {
+	return out_channel_count;
+}
+
+void PureDataInstance::set_out_channel_count(int count) {
+	out_channel_count = count;
+	init_audio();
+}
+
+int PureDataInstance::get_sample_rate() const {
+	return sample_rate;
+}
+
+void PureDataInstance::set_sample_rate(int rate) {
+	sample_rate = rate;
+	init_audio();
 }

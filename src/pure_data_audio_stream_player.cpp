@@ -10,6 +10,10 @@ using namespace godot;
 
 void AudioStreamPureData::_bind_methods()
 {
+	ClassDB::bind_method(D_METHOD("set_instance", "instance"), &AudioStreamPureData::set_instance);
+	ClassDB::bind_method(D_METHOD("get_instance"), &AudioStreamPureData::get_instance);
+
+	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "instance", PROPERTY_HINT_NODE_TYPE, "PureDataInstance"), "set_instance", "get_instance");
 }
 
 AudioStreamPureData::AudioStreamPureData() {
@@ -23,6 +27,7 @@ AudioStreamPureData::~AudioStreamPureData()
 Ref<AudioStreamPlayback> AudioStreamPureData::_instantiate_playback() const {
 	Ref<AudioStreamPureDataPlayback> playback;
 	playback.instantiate();
+	playback->audiostream = this;
 	return playback;
 }
 
@@ -38,19 +43,31 @@ bool AudioStreamPureData::_is_monophonic() const {
 	return true;
 }
 
+void AudioStreamPureData::set_instance(PureDataInstance *instance) {
+	pd_instance = instance;
+}
+
+PureDataInstance* AudioStreamPureData::get_instance() const {
+	return pd_instance;
+}
+
 ////////////////
 
 AudioStreamPureDataPlayback::AudioStreamPureDataPlayback() {
+	audiostream = nullptr;
 	active = false;
 	mixed = 0;
 }
 
 float AudioStreamPureDataPlayback::_get_stream_sampling_rate() const {
-	return 44100;
+	if (audiostream && audiostream->get_instance()) {
+		return audiostream->get_instance()->get_sample_rate();
+	}
+	return 0;
 }
 
 int AudioStreamPureDataPlayback::_mix_resampled(AudioFrame *p_buffer, int p_frames) {
-	if (!active) {
+	if (!active || !audiostream || !audiostream->get_instance()) {
 		return 0;
 	}
 
@@ -60,8 +77,10 @@ int AudioStreamPureDataPlayback::_mix_resampled(AudioFrame *p_buffer, int p_fram
 		return 0;
 	}
 
+	int channel_count = audiostream->get_instance()->get_out_channel_count();
 	for(int i = 0; i < p_frames; i++) {
-		Vector2 v = Vector2(outbuf_[i*2], outbuf_[(i*2)+1])
+		int frame_index = i * channel_count;
+		Vector2 v = Vector2(outbuf_[frame_index], outbuf_[frame_index + 1])
 				.clamp(Vector2(-1, -1), Vector2(1, 1));
 
 		AudioFrame f;

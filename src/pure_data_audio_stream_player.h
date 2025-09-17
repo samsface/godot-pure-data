@@ -1,5 +1,6 @@
 #pragma once
 
+#include "pure_data_instance.h"
 #include <godot_cpp/classes/audio_stream.hpp>
 #include <godot_cpp/classes/audio_stream_playback_resampled.hpp>
 
@@ -7,6 +8,9 @@ namespace godot {
 
 class AudioStreamPureData : public AudioStream {
 	GDCLASS(AudioStreamPureData, AudioStream)
+
+private:
+	PureDataInstance *pd_instance = nullptr;
 
 protected:
 	static void _bind_methods();
@@ -20,6 +24,9 @@ public:
 	virtual String _get_stream_name() const override;
 	virtual double _get_length() const override;
 	virtual bool _is_monophonic() const override;
+
+	void set_instance(PureDataInstance *instance);
+	PureDataInstance *get_instance() const;
 };
 
 class AudioStreamPureDataPlayback : public AudioStreamPlaybackResampled {
@@ -27,6 +34,7 @@ class AudioStreamPureDataPlayback : public AudioStreamPlaybackResampled {
 	friend class AudioStreamPureData;
 	bool active;
 	float mixed;
+	const AudioStreamPureData *audiostream = nullptr;
 
 private:
 	float inbuf_[1];

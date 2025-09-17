@@ -11,6 +11,11 @@ private:
 	double time_passed;
 	float initialized_{};
 	bool message_guard_{};
+	int in_channel_count = 1;
+	int out_channel_count = 1;
+	int sample_rate = 44100;
+
+	int init_audio();
 
 protected:
 	static void _bind_methods();
@@ -33,6 +38,13 @@ public:
 	int set_array_size(String array_name, int size);
 	int write_array(String array_name, int offset, PackedFloat32Array src, int n);
 	PackedFloat32Array read_array(String array_name, int offset, int n);
+
+	int get_in_channel_count() const;
+	void set_in_channel_count(int count);
+	int get_out_channel_count() const;
+	void set_out_channel_count(int count);
+	int get_sample_rate() const;
+	void set_sample_rate(int rate);
 };
 
 };
