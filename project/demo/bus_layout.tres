@@ -6,5 +6,11 @@ instance = Object(PureDataInstance,"in_channel_count":2,"out_channel_count":2,"s
 resource_name = "PureData"
 
 [resource]
-bus/0/effect/0/effect = SubResource("AudioEffectPureData_j3pel")
-bus/0/effect/0/enabled = true
+bus/1/name = &"Pure Data"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = 0.0
+bus/1/send = &"Master"
+bus/1/effect/0/effect = SubResource("AudioEffectPureData_j3pel")
+bus/1/effect/0/enabled = true

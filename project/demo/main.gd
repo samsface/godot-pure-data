@@ -1,7 +1,6 @@
 extends Control
 
 var patch_file_handle_ = PureDataPatch.new()
-@export var patch: PureDataPatchFile
 
 
 # Called when the node enters the scene tree for the first time.
@@ -21,3 +20,7 @@ func _on_harmonic_slider_value_changed(value: float) -> void:
 
 func _on_modulation_slider_value_changed(value: float) -> void:
 	$PureDataInstance.send_float("modulation-index", value)
+
+
+func _on_oscillator_enable_button_toggled(toggled_on: bool) -> void:
+	$PureDataInstance.send_float("enable-osc", toggled_on)

@@ -1,12 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8aoxiynmoflw"]
+[gd_scene load_steps=8 format=3 uid="uid://c8aoxiynmoflw"]
 
 [ext_resource type="Script" uid="uid://cgviwr7ykr2oe" path="res://demo/main.gd" id="1_8xx6l"]
 [ext_resource type="Script" uid="uid://cu4m5blqsfc8w" path="res://addons/pure-data/pure_data_patch_instance.gd" id="2_nf33n"]
 [ext_resource type="Resource" uid="uid://cubwavntchyvc" path="res://demo/patch.pd" id="3_26hti"]
 [ext_resource type="Script" uid="uid://b0blfx23hs8x2" path="res://addons/pure-data/pure_data_abstraction.gd" id="4_8oxsu"]
 [ext_resource type="Resource" uid="uid://by437i5hd8nv4" path="res://demo/abstraction.pd" id="4_w2ui7"]
-
-[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_wrxtx"]
+[ext_resource type="Resource" uid="uid://dsycfgw4x1s8w" path="res://demo/effect.pd" id="6_cqq71"]
+[ext_resource type="AudioStream" uid="uid://bmr45qcfkn4g3" path="res://demo/assets/House in a Forest Loop.ogg" id="7_d70j4"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -27,6 +27,11 @@ patch_file = ExtResource("3_26hti")
 script = ExtResource("4_8oxsu")
 patch_file = ExtResource("4_w2ui7")
 
+[node name="EffectPatch" type="Node" parent="."]
+script = ExtResource("2_nf33n")
+patch_file = ExtResource("6_cqq71")
+metadata/_custom_type_script = "uid://cu4m5blqsfc8w"
+
 [node name="GridContainer" type="GridContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -35,6 +40,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 columns = 2
+
+[node name="OscillatorLabel" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Oscillator"
+
+[node name="OscillatorEnableButton" type="CheckButton" parent="GridContainer"]
+layout_mode = 2
 
 [node name="FrequencyLabel" type="Label" parent="GridContainer"]
 layout_mode = 2
@@ -68,9 +80,11 @@ step = 0.001
 value = 1.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = SubResource("AudioStreamGenerator_wrxtx")
+stream = ExtResource("7_d70j4")
 autoplay = true
+bus = &"Pure Data"
 
+[connection signal="toggled" from="GridContainer/OscillatorEnableButton" to="." method="_on_oscillator_enable_button_toggled"]
 [connection signal="value_changed" from="GridContainer/FrequencySlider" to="." method="_on_frequency_slider_value_changed"]
 [connection signal="value_changed" from="GridContainer/HarmonicSlider" to="." method="_on_harmonic_slider_value_changed"]
 [connection signal="value_changed" from="GridContainer/ModulationSlider" to="." method="_on_modulation_slider_value_changed"]
