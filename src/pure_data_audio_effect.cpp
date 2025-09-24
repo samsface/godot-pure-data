@@ -8,9 +8,19 @@
 
 using namespace godot;
 
-void AudioEffectPureDataInstance::_process(const void *p_src_frames, AudioFrame *p_dst_frames, int32_t p_frame_count) {
+void AudioEffectPureDataInstance::_process(const AudioFrame *p_src_frames, AudioFrame *p_dst_frames, int32_t p_frame_count) {
 	if (!base->pd_instance) {
 		return;
+	}
+
+	int in_channel_count = base->pd_instance->get_in_channel_count();
+	for (int i = 0; i < p_frame_count; i++) {
+		int frame_index = i * in_channel_count;
+
+		AudioFrame f = p_src_frames[i];
+
+		inbuf_[frame_index] = f.left;
+		inbuf_[frame_index + 1] = f.right;
 	}
 
 	int ticks = p_frame_count / libpd_blocksize();
@@ -19,9 +29,9 @@ void AudioEffectPureDataInstance::_process(const void *p_src_frames, AudioFrame 
 		return;
 	}
 
-	int channel_count = base->pd_instance->get_out_channel_count();
+	int out_channel_count = base->pd_instance->get_out_channel_count();
 	for (int i = 0; i < p_frame_count; i++) {
-		int frame_index = i * channel_count;
+		int frame_index = i * out_channel_count;
 		Vector2 v = Vector2(outbuf_[frame_index], outbuf_[frame_index + 1])
 							.clamp(Vector2(-1, -1), Vector2(1, 1));
 

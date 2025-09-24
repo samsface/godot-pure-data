@@ -22,7 +22,7 @@ protected:
 	static void _bind_methods() {};
 
 public:
-	virtual void _process(const void *p_src_frames, AudioFrame *p_dst_frames, int32_t p_frame_count) override;
+	virtual void _process(const AudioFrame *p_src_frames, AudioFrame *p_dst_frames, int32_t p_frame_count);
 	virtual bool _process_silence() const override;
 };
 
