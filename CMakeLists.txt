@@ -63,6 +63,7 @@ add_library(
 	SHARED
 		src/pure_data_instance.cpp
 		src/pure_data_audio_stream_player.cpp
+		src/pure_data_audio_effect.cpp
 		src/pure_data_patch.cpp
 		src/register_types.cpp
 )

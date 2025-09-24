@@ -6,7 +6,8 @@ var patch_file_handle_ = PureDataPatch.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$AudioStreamPlayer.play()
+	pass
+	#$AudioStreamPlayer.play()
 	#$PureDataInstance.start_gui("/Applications/Pd-0.55-2.app/Contents/MacOS")
 
 

@@ -2,6 +2,7 @@
 
 #include "pure_data_instance.h"
 #include "pure_data_audio_stream_player.h"
+#include "pure_data_audio_effect.h"
 #include "pure_data_patch.h"
 
 #include <gdextension_interface.h>
@@ -18,6 +19,8 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<PureDataInstance>();
 	ClassDB::register_class<AudioStreamPureData>();
 	ClassDB::register_class<AudioStreamPureDataPlayback>();
+	ClassDB::register_class<AudioEffectPureData>();
+	ClassDB::register_class<AudioEffectPureDataInstance>();
 	ClassDB::register_class<PureDataPatch>();
 }
 
