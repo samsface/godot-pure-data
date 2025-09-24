@@ -1,3 +1,6 @@
 .godot
 work
+bin/
 .DS_Store
+.cache/
+.vscode/

@@ -11,13 +11,27 @@ jobs:
   build:
     strategy:
       matrix:
-        os: ['ubuntu', 'windows', 'macos']
-    runs-on: ${{ matrix.os }}-latest
+        os:
+          - 'ubuntu-latest'
+          - 'ubuntu-24.04-arm'
+          #- 'windows-latest'
+          - 'macos-latest'
+    runs-on: ${{ matrix.os }}
     steps:
       - name: checkout
         uses: actions/checkout@v4.1.7
         with:
           submodules: 'recursive'
+      - name: setup ninja
+        run: |
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            sudo apt-get install ninja-build
+          elif [ "$RUNNER_OS" == "Windows" ]; then
+            choco install ninja
+          elif [ "$RUNNER_OS" == "macOS" ]; then
+            brew install ninja
+          fi
+        shell: bash
       - name: build
         run: ./ci/ci.bash
         shell: bash
