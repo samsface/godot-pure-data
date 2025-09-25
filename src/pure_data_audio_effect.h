@@ -15,8 +15,10 @@ class AudioEffectPureDataInstance : public AudioEffectInstance {
 	Ref<AudioEffectPureData> base;
 
 private:
-	float inbuf_[44100 * 2];
-	float outbuf_[44100 * 2];
+	std::array<float, BUFFER_SIZE> inbuf_;
+	std::array<float, BUFFER_SIZE> outbuf_;
+
+	bool processed = false;
 
 protected:
 	static void _bind_methods() {};

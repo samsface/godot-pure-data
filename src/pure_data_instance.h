@@ -2,6 +2,8 @@
 
 #include <godot_cpp/classes/node.hpp>
 
+#define BUFFER_SIZE 44100 * 2
+
 namespace godot {
 
 class PureDataInstance : public Node {
@@ -15,6 +17,10 @@ private:
 	int out_channel_count = 2;
 	int sample_rate = 44100;
 
+	float in_buffer[BUFFER_SIZE];
+	float out_buffer[BUFFER_SIZE];
+	std::array<float, BUFFER_SIZE> out_array;
+
 	int init_audio();
 
 protected:
@@ -23,6 +29,9 @@ protected:
 public:
 	PureDataInstance();
 	~PureDataInstance();
+
+	std::array<float, BUFFER_SIZE> _process_audio(bool process, int ticks);
+	void add_input(std::array<float, BUFFER_SIZE> &input);
 
 	bool is_initialized() const;
 	bool send_bang(String receiver);
@@ -47,4 +56,4 @@ public:
 	void set_sample_rate(int rate);
 };
 
-};
+}; //namespace godot

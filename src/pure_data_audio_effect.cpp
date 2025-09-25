@@ -25,8 +25,12 @@ void AudioEffectPureDataInstance::_process(const AudioFrame *p_src_frames, Audio
 
 	int ticks = p_frame_count / libpd_blocksize();
 
-	if (::libpd_process_float(ticks, inbuf_, outbuf_) != 0) {
-		return;
+	base->pd_instance->add_input(inbuf_);
+	std::array<float, BUFFER_SIZE> out = base->pd_instance->_process_audio(processed, ticks);
+	processed = true;
+
+	for (int i = 0; i < BUFFER_SIZE; i++) {
+		outbuf_[i] = out[i];
 	}
 
 	int out_channel_count = base->pd_instance->get_out_channel_count();
