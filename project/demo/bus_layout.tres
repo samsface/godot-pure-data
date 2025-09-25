@@ -1,0 +1,16 @@
+[gd_resource type="AudioBusLayout" load_steps=2 format=3 uid="uid://cpi04vnsiegja"]
+
+[sub_resource type="AudioEffectPureData" id="AudioEffectPureData_j3pel"]
+instance = Object(PureDataInstance,"in_channel_count":2,"out_channel_count":2,"sample_rate":44100,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","script":null)
+
+resource_name = "PureData"
+
+[resource]
+bus/1/name = &"Pure Data"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = 0.0
+bus/1/send = &"Master"
+bus/1/effect/0/effect = SubResource("AudioEffectPureData_j3pel")
+bus/1/effect/0/enabled = true

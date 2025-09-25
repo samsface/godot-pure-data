@@ -15,6 +15,10 @@ run/main_scene="res://demo/main.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="res://demo/bus_layout.tres"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/pure-data/plugin.cfg")

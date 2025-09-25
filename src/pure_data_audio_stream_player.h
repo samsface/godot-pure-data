@@ -1,58 +1,62 @@
 #pragma once
 
-#include <godot_cpp/classes/audio_stream_player.hpp>
+#include "pure_data_instance.h"
+#include <godot_cpp/classes/audio_stream.hpp>
+#include <godot_cpp/classes/audio_stream_playback_resampled.hpp>
 
 namespace godot {
 
-class PureDataPatch : public RefCounted {
-	GDCLASS(PureDataPatch, RefCounted)
-
-	void* handle_{};
-
-protected:
-	static void _bind_methods();
-
-public:
-	PureDataPatch() = default;
-	~PureDataPatch() = default;
-
-	bool open(String path);
-	void close();
-
-};
-
-class PureDataAudioStreamPlayer : public AudioStreamPlayer {
-	GDCLASS(PureDataAudioStreamPlayer, AudioStreamPlayer)
+class AudioStreamPureData : public AudioStream {
+	GDCLASS(AudioStreamPureData, AudioStream)
 
 private:
-	double time_passed;
-	float inbuf_[1];
-	float outbuf_[44100 * 2];
-	float initialized_{};
-	bool message_guard_{};
+	PureDataInstance *pd_instance = nullptr;
 
 protected:
 	static void _bind_methods();
 
 public:
-	PureDataAudioStreamPlayer();
-	~PureDataAudioStreamPlayer();
+	AudioStreamPureData();
+	~AudioStreamPureData();
 
-	void _process(double delta) override;
+	virtual Ref<AudioStreamPlayback> _instantiate_playback() const override;
 
-	bool is_initialized() const;
-	bool send_bang(String receiver);
-	bool send_float(String receiver, float value);
-	bool start_message(int max_length);
-	void add_float(float value);
-	void add_symbol(String value);
-	bool finish_list(String receiver);
-	bool finish_message(String receiver, String message);
-	void bind(String receiver);
-	bool start_gui(String pure_data_bin_dir_path);
-	int get_array_size(String array_name);
-	int set_array_size(String array_name, int size);
-	int write_array(String array_name, int offset, PackedFloat32Array src, int n);
-	PackedFloat32Array read_array(String array_name, int offset, int n);
+	virtual String _get_stream_name() const override;
+	virtual double _get_length() const override;
+	virtual bool _is_monophonic() const override;
+
+	void set_instance(PureDataInstance *instance);
+	PureDataInstance *get_instance() const;
 };
+
+class AudioStreamPureDataPlayback : public AudioStreamPlaybackResampled {
+	GDCLASS(AudioStreamPureDataPlayback, AudioStreamPlaybackResampled);
+	friend class AudioStreamPureData;
+	bool active;
+	float mixed;
+	const AudioStreamPureData *audiostream = nullptr;
+
+private:
+	float inbuf_[1];
+	float outbuf_[44100 * 2];
+
+protected:
+	static void _bind_methods();
+
+public:
+	AudioStreamPureDataPlayback();
+
+	virtual int _mix_resampled(AudioFrame *p_buffer, int p_frames) override;
+	virtual float _get_stream_sampling_rate() const override;
+
+	virtual void _start(double p_from_pos = 0.0) override;
+	virtual void _stop() override;
+	virtual bool _is_playing() const override;
+
+	virtual int _get_loop_count() const override;
+
+	virtual double _get_playback_position() const override;
+	virtual void _seek(double p_time) override;
+};
+
 };

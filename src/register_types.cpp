@@ -1,6 +1,9 @@
 #include "register_types.h"
 
+#include "pure_data_instance.h"
 #include "pure_data_audio_stream_player.h"
+#include "pure_data_audio_effect.h"
+#include "pure_data_patch.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -13,7 +16,11 @@ void initialize_example_module(ModuleInitializationLevel p_level) {
 		return;
 	}
 
-	ClassDB::register_class<PureDataAudioStreamPlayer>();
+	ClassDB::register_class<PureDataInstance>();
+	ClassDB::register_class<AudioStreamPureData>();
+	ClassDB::register_class<AudioStreamPureDataPlayback>();
+	ClassDB::register_class<AudioEffectPureData>();
+	ClassDB::register_class<AudioEffectPureDataInstance>();
 	ClassDB::register_class<PureDataPatch>();
 }
 

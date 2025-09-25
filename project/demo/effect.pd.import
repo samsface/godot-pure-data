@@ -1,0 +1,14 @@
+[remap]
+
+importer="pure_data.patch"
+type="PureDataPatchFile"
+uid="uid://dsycfgw4x1s8w"
+path="res://.godot/imported/effect.pd-920431fd97dcdf7ae60e33015c889fae.tres"
+
+[deps]
+
+source_file="res://demo/effect.pd"
+dest_files=["res://.godot/imported/effect.pd-920431fd97dcdf7ae60e33015c889fae.tres"]
+
+[params]
+
